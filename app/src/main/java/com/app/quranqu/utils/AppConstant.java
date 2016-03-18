@@ -10,4 +10,11 @@ public class AppConstant {
     public static String AUTH = "myindihome:uC7NH843EPix"; //development
 //    public static String AUTH = "myindihome:p7d2kLX4b4NF58VM84vW"; //production
 
+
+    public static String CLIENT_ID      = "709a5eb6094b727daef849903813ae31";
+    public static String CLIENT_SECRET  = "08cee44cd07101f13a5ea235fe77944882fe6241";
+    public static String CODE = "code";
+    public static String INFO = "info";
+    public static String DATA = "data";
+    public static String ACCESS_TOKEN = "access_token";
 }

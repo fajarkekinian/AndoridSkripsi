@@ -234,12 +234,12 @@ public class AppUtility {
     public static String HttpUrlConnectionPost(String u, String q, String c, Integer to){
         String response="";
         HttpURLConnection conn=null;
-        String basicAuth = "Basic " + new String(Base64.encode(AppConstant.AUTH.getBytes(), Base64.NO_WRAP));
+//        String basicAuth = "Basic " + new String(Base64.encode(AppConstant.AUTH.getBytes(), Base64.NO_WRAP));
         try{
             URL url = new URL(u);
             conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("Authorization", basicAuth);
-            conn.setDoOutput(false);
+//            conn.setRequestProperty("Authorization", basicAuth);
+            conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setRequestMethod("POST");
             conn.setConnectTimeout(to);
