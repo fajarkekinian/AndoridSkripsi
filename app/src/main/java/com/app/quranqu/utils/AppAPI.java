@@ -2,6 +2,7 @@ package com.app.quranqu.utils;
 
 /**
  * edited by trian on 03/17/2016
+ *
  */
 
 public class AppAPI {
