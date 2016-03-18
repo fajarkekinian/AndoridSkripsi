@@ -1,10 +1,7 @@
 package com.app.quranqu;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,14 +67,21 @@ public class ListQuranActivity extends AppCompatActivity {
     }
 
     /**
-     * retrieve auth token from server vie GET METHODE
+     * retrieve auth token from server vie GET METHOD
      * **/
     private class GetListSurahAsc extends AsyncTask<String, Void,String> {
         @Override
         protected String doInBackground(String... params) {
             String result="";
+            DataCacheManagement dcm = new DataCacheManagement(ListQuranActivity.this);
             try{
-                result = AppUtility.HttpUrlConnectionGet(AppAPI.API_LIST_SURAH, 10000);
+                String charset  = "UTF-8";
+                String query = String.format("client_id=%s&client_secret=%s",
+                        URLEncoder.encode(AppConstant.CLIENT_ID, charset),
+                        URLEncoder.encode(AppConstant.CLIENT_SECRET, charset));
+                result = AppUtility.HttpUrlConnectionGet("https://api.twitter.com/1.1/statuses/home_timeline.json", 10000, dcm.getAuthToken());
+//                result = AppUtility.doHttpUrlConnectionAction("https://api.twitter.com/1.1/statuses/home_timeline.json");
+//                result = AppUtility.HttpUrlConnectionPost(AppAPI.API_LIST_SURAH,query,charset,10000);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -96,16 +100,19 @@ public class ListQuranActivity extends AppCompatActivity {
             AppUtility.printLog(result);
             try{
                 JSONObject jsonObject = new JSONObject(result);
-                if(jsonObject.getInt(AppConstant.CODE)==201){
+                if(jsonObject.getInt(AppConstant.CODE)==200){
                     JSONArray arrayList = new JSONArray(jsonObject.getString(AppConstant.DATA));
                     if(arrayList.length()>0) {
                         JSONObject jsonObject2;
                         for (int i = 0; i < arrayList.length(); i++) {
                             jsonObject2 = arrayList.getJSONObject(i);
-                            String customerName = jsonObject2.getString("customerName");
+                            orderList.add(
+                                    new DataHolder(jsonObject2.getString(AppConstant.INDEX),
+                                                    jsonObject2.getString(AppConstant.NAME_INDONESIA))
+                            );
                         }
                     }
-                    ListQuranAdapter mListOrderAdapter = new ListQuranAdapter(getListData(), ListQuranActivity.this);
+                    ListQuranAdapter mListOrderAdapter = new ListQuranAdapter(orderList, ListQuranActivity.this);
                     mViewList.setAdapter(mListOrderAdapter);
                 }else{
                     AppUtility.printLog("error info = "+jsonObject.getString(AppConstant.INFO));

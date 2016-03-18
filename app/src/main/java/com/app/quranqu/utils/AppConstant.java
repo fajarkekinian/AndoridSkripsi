@@ -22,5 +22,9 @@ public class AppConstant {
     public static String NAME_INDONESIA = "name_indonesia";
     public static String NAME_ENGLISH   = "name_english";
     public static String START          = "start";
+    public static String AYAS           = "ayas";
+    public static String TYPE           = "type";
+    public static String ORDER          = "order";
+    public static String RUKUS          = "rukus";
     
 }

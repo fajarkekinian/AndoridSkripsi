@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -195,19 +196,31 @@ public class AppUtility {
 
         return v;
     }
-    public static String HttpUrlConnectionGet(String u, Integer to){
+
+    /**
+     * get method to retrieve data from back end server
+     * **/
+    public static String HttpUrlConnectionGet(String u, Integer to, String token){
         String response="";
         HttpURLConnection conn=null;
         try{
             URL url = new URL(u);
             conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
+//            conn.setDoOutput(true);
+//            conn.setDoInput(true);
             conn.setRequestMethod("GET");
-            conn.setConnectTimeout(to);
-            conn.setReadTimeout(to+5000);
+//            conn.setRequestProperty("token", token);
+//            conn.setConnectTimeout(to);
+//            conn.setReadTimeout(to+5000);
+//            conn.connect();
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("url : " + url);
+            System.out.println("Response Code : " + responseCode);
             StringBuilder sb = new StringBuilder();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
+//            StringBuffer sb = new StringBuffer();
+//            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line + "\n");
@@ -280,10 +293,10 @@ public class AppUtility {
             conn.setConnectTimeout(to);
             conn.setReadTimeout(to);
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-            wr.writeBytes(var+"=" + encodedParam(param));
+            wr.writeBytes(var + "=" + encodedParam(param));
             //wr.writeBytes(encodedParam(req));
-            wr.flush ();
-            wr.close ();
+            wr.flush();
+            wr.close();
             StringBuilder sb = new StringBuilder();
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
             String line;
@@ -331,6 +344,56 @@ public class AppUtility {
             e.printStackTrace();
         }
         return response;
+    }
+    public static String doHttpUrlConnectionAction(String desiredUrl) {
+        URL url = null;
+        BufferedReader reader = null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            // create the HttpURLConnection
+            url = new URL(desiredUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // just want to do an HTTP GET here
+            connection.setRequestMethod("GET");
+
+            // uncomment this if you want to write output to this url
+            //connection.setDoOutput(true);
+            connection.setRequestProperty("Accept-Charset", "UTF-8");
+;
+
+            // give it 15 seconds to respond
+            connection.setReadTimeout(15*1000);
+            connection.setDoOutput(true);
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+            System.out.println("Response Code : " + responseCode);
+
+            // read the output from the server
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line + "\n");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close the reader; this can throw an exception too, so
+            // wrap it in another try/catch block.
+            if (reader != null) {
+                try {
+                    reader.close();
+                }
+                catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+        }
+        return stringBuilder.toString();
     }
 
     /**

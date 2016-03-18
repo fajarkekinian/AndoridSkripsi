@@ -21,8 +21,9 @@ public class DataCacheManagement {
     public void setAuthToken(String s){
         SharedPreferences.Editor editor = sharePref.edit();
         editor.putString(AUTH_TOKEN,s);
+        editor.apply();
     }
-    public String get (){
+    public String getAuthToken(){
         return sharePref.getString(AUTH_TOKEN, null);
     }
     public void clearCache() {
