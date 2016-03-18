@@ -51,7 +51,7 @@ public class SplashActivity extends AppCompatActivity {
     private void setPermission(){
         if (ContextCompat.checkSelfPermission(SplashActivity.this, INTERNET) != PackageManager.PERMISSION_GRANTED
             || ContextCompat.checkSelfPermission(SplashActivity.this, ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this, READ_PHONE_STATE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this, INTERNET)) {
                 AppUtility.printLog("masuk pertanyaan");
 //                CoordinatorLayout coor = (CoordinatorLayout) findViewById(R.id.lytCoor);
 //                Snackbar.make(coor, "Tolong Izinkan",
@@ -100,6 +100,10 @@ public class SplashActivity extends AppCompatActivity {
     private boolean canMakeSmores() {
         return(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1);
     }
+
+    /**
+     * retrieve auth token from server
+     * **/
     private class GetAuthTokenAsc extends AsyncTask<String, Void,String>{
         @Override
         protected String doInBackground(String... params) {

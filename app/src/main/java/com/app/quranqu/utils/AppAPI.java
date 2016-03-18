@@ -6,8 +6,9 @@ package com.app.quranqu.utils;
 
 public class AppAPI {
 
-    public static String BASE_URL                           = "http://103.43.45.112/service/api/"; //Development
+    public static String BASE_URL   = "http://103.43.45.112/service/api/"; //Development
     //public static String BASE_URL                           = "http://api.indihome.co.id/api/"; //Production
 
-    public static String API_AUTH_TOKEN                  = BASE_URL +"authorize/token";
+    public static String API_AUTH_TOKEN = BASE_URL +"authorize/token";
+    public static String API_LIST_SURAH = BASE_URL + "resources/surah";
 }

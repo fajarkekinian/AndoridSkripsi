@@ -17,4 +17,10 @@ public class AppConstant {
     public static String INFO = "info";
     public static String DATA = "data";
     public static String ACCESS_TOKEN = "access_token";
+
+    public static String INDEX          = "index";
+    public static String NAME_INDONESIA = "name_indonesia";
+    public static String NAME_ENGLISH   = "name_english";
+    public static String START          = "start";
+    
 }
