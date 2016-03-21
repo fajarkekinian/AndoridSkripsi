@@ -1,6 +1,7 @@
 package com.app.quranqu.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.app.quranqu.DetailSurahActivity;
 import com.app.quranqu.Model.DataHolder;
 import com.app.quranqu.R;
 
@@ -36,7 +38,10 @@ public class ListQuranAdapter extends RecyclerView.Adapter<ListQuranAdapter.List
         holder.mLytLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(appContext, DetailSurahActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra("ticketId", dh.data1);
+                appContext.startActivity(i);
             }
         });
     }
