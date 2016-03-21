@@ -11,4 +11,5 @@ public class AppAPI {
 
     public static String API_AUTH_TOKEN = BASE_URL +"authorize/token";
     public static String API_LIST_SURAH = BASE_URL + "resources/surah";
+    public static String API_LIST_SURAH_DETAIL = "resources/reading/surah/1";
 }

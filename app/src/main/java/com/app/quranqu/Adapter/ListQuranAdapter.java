@@ -33,6 +33,12 @@ public class ListQuranAdapter extends RecyclerView.Adapter<ListQuranAdapter.List
         final DataHolder dh = mListOrder.get(position);
         holder.mtxtNoSurah.setText(dh.data1);
         holder.mtxtNameSurah.setText(dh.data2);
+        holder.mLytLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -44,12 +50,12 @@ public class ListQuranAdapter extends RecyclerView.Adapter<ListQuranAdapter.List
     }
 
     public static class ListOrderViewHolder extends RecyclerView.ViewHolder{
-        protected LinearLayout mLytRelative;
+        protected LinearLayout mLytLinear;
         protected TextView mtxtNoSurah;
         protected TextView mtxtNameSurah;
         public ListOrderViewHolder(View v) {
             super(v);
-            mLytRelative        = (LinearLayout)v.findViewById(R.id.lytListQuran);
+            mLytLinear        = (LinearLayout)v.findViewById(R.id.lytListQuran);
             mtxtNoSurah         = (TextView)v.findViewById(R.id.txtNoSurah);
             mtxtNameSurah       = (TextView)v.findViewById(R.id.txtNameSurah);
         }

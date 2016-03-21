@@ -2,9 +2,9 @@ package com.app.quranqu;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -18,53 +18,28 @@ import com.app.quranqu.utils.DataCacheManagement;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
-public class ListQuranActivity extends AppCompatActivity {
-
-    RecyclerView mViewList;
-    private List<DataHolder> orderList = new ArrayList<>();
+public class DetailSurahActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_quran);
+        setContentView(R.layout.activity_detail_surah);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        new GetDetailSurahAsc().execute();
 
-        mViewList = (RecyclerView) findViewById(R.id.recyclerView);
-        mViewList.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(ListQuranActivity.this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mViewList.setLayoutManager(llm);
-
-        new GetListSurahAsc().execute();
     }
-
     /**
-     * retrieve auth token from server vie GET METHOD
+     * retrieve surah detail from server vie GET METHOD
      * **/
-    private class GetListSurahAsc extends AsyncTask<String, Void,String> {
+    private class GetDetailSurahAsc extends AsyncTask<String, Void,String> {
         @Override
         protected String doInBackground(String... params) {
             String result="";
-            DataCacheManagement dcm = new DataCacheManagement(ListQuranActivity.this);
+            DataCacheManagement dcm = new DataCacheManagement(DetailSurahActivity.this);
             try{
-                result = AppUtility.HttpUrlConnectionGet(AppAPI.API_LIST_SURAH,10000,"");
+                result = AppUtility.HttpUrlConnectionGet(AppAPI.API_LIST_SURAH_DETAIL, 10000, "");
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -73,7 +48,7 @@ public class ListQuranActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            AppUtility.progressDialog(ListQuranActivity.this, "Mohon Tunggu", false);
+            AppUtility.progressDialog(DetailSurahActivity.this, "Mohon Tunggu", false);
             AppUtility.progressDialogShow();
         }
 
@@ -89,14 +64,14 @@ public class ListQuranActivity extends AppCompatActivity {
                         JSONObject jsonObject2;
                         for (int i = 0; i < arrayList.length(); i++) {
                             jsonObject2 = arrayList.getJSONObject(i);
-                            orderList.add(
-                                    new DataHolder(jsonObject2.getString(AppConstant.INDEX),
-                                                    jsonObject2.getString(AppConstant.NAME_INDONESIA))
-                            );
+//                            orderList.add(
+//                                    new DataHolder(jsonObject2.getString(AppConstant.INDEX),
+//                                            jsonObject2.getString(AppConstant.NAME_INDONESIA))
+//                            );
                         }
                     }
-                    ListQuranAdapter mListOrderAdapter = new ListQuranAdapter(orderList, ListQuranActivity.this);
-                    mViewList.setAdapter(mListOrderAdapter);
+//                    ListQuranAdapter mListOrderAdapter = new ListQuranAdapter(orderList, ListQuranActivity.this);
+//                    mViewList.setAdapter(mListOrderAdapter);
                 }else{
                     AppUtility.printLog("error info = "+jsonObject.getString(AppConstant.INFO));
                 }

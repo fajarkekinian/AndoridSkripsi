@@ -43,7 +43,11 @@
         <activity
             android:name=".ListQuranActivity"
             android:label="@string/title_activity_list_quran"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DetailSurahActivity"
+            android:label="@string/title_activity_detail_surah"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

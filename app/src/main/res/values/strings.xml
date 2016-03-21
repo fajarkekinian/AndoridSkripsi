@@ -10,4 +10,5 @@
     <string name="title_activity_main">Home</string>
     <string name="title_activity_quran">Al-Quran</string>
     <string name="title_activity_list_quran">Al-Quran</string>
+    <string name="title_activity_detail_surah">DetailSurahActivity</string>
 </resources>
