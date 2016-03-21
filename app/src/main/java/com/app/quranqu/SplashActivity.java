@@ -122,8 +122,6 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            AppUtility.progressDialog(SplashActivity.this, "Mohon Tunggu", false);
-            AppUtility.progressDialogShow();
         }
 
         @Override
@@ -144,7 +142,6 @@ public class SplashActivity extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            AppUtility.progressDialogDismiss();
         }
 
     }

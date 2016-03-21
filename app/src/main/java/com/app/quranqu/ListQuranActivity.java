@@ -79,7 +79,8 @@ public class ListQuranActivity extends AppCompatActivity {
                 String query = String.format("client_id=%s&client_secret=%s",
                         URLEncoder.encode(AppConstant.CLIENT_ID, charset),
                         URLEncoder.encode(AppConstant.CLIENT_SECRET, charset));
-                result = AppUtility.HttpUrlConnectionGet("https://api.twitter.com/1.1/statuses/home_timeline.json", 10000, dcm.getAuthToken());
+                result = AppUtility.HttpUrlConnectionGet(AppAPI.API_LIST_SURAH,10000,"");
+//                result = AppUtility.HttpUrlConnectionGet("https://api.twitter.com/1.1/statuses/home_timeline.json", 10000, dcm.getAuthToken());
 //                result = AppUtility.doHttpUrlConnectionAction("https://api.twitter.com/1.1/statuses/home_timeline.json");
 //                result = AppUtility.HttpUrlConnectionPost(AppAPI.API_LIST_SURAH,query,charset,10000);
             }catch (Exception e){

@@ -201,35 +201,32 @@ public class AppUtility {
      * get method to retrieve data from back end server
      * **/
     public static String HttpUrlConnectionGet(String u, Integer to, String token){
-        String response="";
         HttpURLConnection conn=null;
+        StringBuffer response = new StringBuffer();
         try{
-            URL url = new URL(u);
-            conn = (HttpURLConnection) url.openConnection();
-//            conn.setDoOutput(true);
-//            conn.setDoInput(true);
+            URL obj = new URL(u);
+            conn = (HttpURLConnection) obj.openConnection();
+
+            // optional default is GET
             conn.setRequestMethod("GET");
-//            conn.setRequestProperty("token", token);
-//            conn.setConnectTimeout(to);
-//            conn.setReadTimeout(to+5000);
-//            conn.connect();
+
+            //add request header
+//        con.setRequestProperty("User-Agent", USER_AGENT);
 
             int responseCode = conn.getResponseCode();
-            System.out.println("url : " + url);
             System.out.println("Response Code : " + responseCode);
-            StringBuilder sb = new StringBuilder();
-//            StringBuffer sb = new StringBuffer();
-//            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
             }
-            br.close();
-            response = sb.toString();
+            in.close();
+            return response.toString();
         } catch (java.net.SocketTimeoutException e) {
-            response = AppConstant.APP_REQUEST_TIME_OUT;
-            return  response ;
+            return  AppConstant.APP_REQUEST_TIME_OUT ;
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -238,7 +235,7 @@ public class AppUtility {
             }
         }
 
-        return response;
+        return response.toString();
     }
 
     /**
