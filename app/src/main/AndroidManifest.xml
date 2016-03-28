@@ -47,6 +47,10 @@
         <activity
             android:name=".DetailSurahActivity"
             android:label="@string/title_activity_detail_surah"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -134,7 +134,7 @@ public class SplashActivity extends AppCompatActivity {
                     JSONObject jsonObject2 = new JSONObject(jsonObject.getString(AppConstant.DATA));
                     DataCacheManagement dcm = new DataCacheManagement(SplashActivity.this);
                     dcm.setAuthToken(jsonObject2.getString(AppConstant.ACCESS_TOKEN));
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                     finish();
                 }else{
                     AppUtility.printLog("error info = "+jsonObject.getString(AppConstant.INFO));
