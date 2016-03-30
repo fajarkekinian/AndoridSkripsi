@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_splash"
-        android:id="@+id/imageView"
+        android:id="@+id/ic_quran"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
