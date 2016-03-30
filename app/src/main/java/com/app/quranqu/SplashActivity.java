@@ -1,11 +1,17 @@
 package com.app.quranqu;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -41,7 +47,29 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        new GetAuthTokenAsc().execute();
+        if(isNetworkConnected()){
+            new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
+                @Override
+                public void run() {
+                    // This method will be executed once the timer is over
+                    // Start your app main activity
+                    Intent i = new Intent(SplashActivity.this, HomeActivity.class);
+                    startActivity(i);
+
+                    // close this activity
+                    finish();
+                }
+            }, 1000);
+        }else{
+            showAlertSetting();
+        }
+
         if(canMakeSmores()){
             setPermission();
         }
@@ -95,7 +123,6 @@ public class SplashActivity extends AppCompatActivity {
 
     /**
      * Just a check to see if we have marshmallows (version 23)
-     *
      */
     private boolean canMakeSmores() {
         return(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1);
@@ -144,5 +171,32 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    /**
+     * check internet connection
+     * **/
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+    /**
+     * show alert setting
+     * **/
+    private void showAlertSetting(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
+        builder.setTitle("Tidak Ada Koneksi");
+        builder.setMessage("Mohon cek koneksi internet Anda?");
+        builder.setPositiveButton(getResources().getString(R.string.lbl_reply), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                startActivity(new Intent(SplashActivity.this,SplashActivity.class));
+                finish();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
