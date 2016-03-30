@@ -198,5 +198,6 @@ public class SplashActivity extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
     }
 }
