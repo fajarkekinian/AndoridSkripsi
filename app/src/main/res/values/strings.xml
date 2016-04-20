@@ -12,4 +12,6 @@
     <string name="title_activity_list_quran">Al-Quran</string>
     <string name="title_activity_detail_surah">DetailSurahActivity</string>
     <string name="title_activity_home">HomeActivity</string>
+
+    <string name="lbl_reply">Ulangi</string>
 </resources>
